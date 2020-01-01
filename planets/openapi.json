@@ -1,1 +1,274 @@
-[object Object]
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Planets",
+    "description": "This is an API keeping track of planets.",
+    "license": {
+      "name": "Attribution ShareAlike (CC BY-SA)",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
+    }
+  },
+  "servers": [
+    {
+      "description": "development",
+      "url": "http://planet.api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/planets": {
+      "get": {
+        "description": "List of all planets.",
+        "operationId": "listPlanets",
+        "tags": [
+          "Planets"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items to return at one time (max 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paged array of planets",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Planets"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Planet",
+        "operationId": "createPlanets",
+        "requestBody": {
+          "description": "Planet body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Planet"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Planets"
+        ],
+        "responses": {
+          "201": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/planets/{planet_id}": {
+      "get": {
+        "summary": "Get Planet",
+        "description": "Gets a single planet.",
+        "operationId": "getPlanet",
+        "tags": [
+          "Planets"
+        ],
+        "parameters": [
+          {
+            "name": "planet_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the planet to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Planet"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Planet",
+        "description": "Updates a planet.",
+        "operationId": "updatePlanet",
+        "parameters": [
+          {
+            "name": "planet_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the planet to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Planet body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Planet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Accepted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Planets"
+        ]
+      },
+      "delete": {
+        "summary": "Delete Planet",
+        "description": "Delete a planet.",
+        "operationId": "deletePlanet",
+        "tags": [
+          "Planets"
+        ],
+        "parameters": [
+          {
+            "name": "planet_id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the planet to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Delete Accepted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Planet": {
+        "type": "object",
+        "required": [
+          "id",
+          "given_name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "given_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "website_url": {
+            "type": "string"
+          }
+        }
+      },
+      "Planets": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Planet"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
