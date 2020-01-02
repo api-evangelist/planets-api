@@ -1,0 +1,50 @@
+{
+  "name": "Planets",
+  "description": "",
+  "image": "https://example.com/image.jpg",
+  "tags": [
+    "application programming interface",
+    "API",
+    "Planets"
+  ],
+  "created": "2020-01-01",
+  "modified": "2020-01-01",
+  "url": "https://github.com/api-evangelist/planets-api/apis.json",
+  "specificationVersion": "0.14",
+  "apis": [
+    {
+      "name": "Planets",
+      "description": "",
+      "image": "https://example.com/image.jpg",
+      "humanURL": "http://github.com",
+      "baseURL": "http://mockurl.com",
+      "tags": [
+        "API",
+        "Application Programming Interface",
+        "Tools"
+      ],
+      "properties": [
+        {
+          "type": "x-openapi",
+          "url": "https://github.com/api-evangelist/planets-api/planets/openapi.json"
+        }
+      ],
+      "contact": [
+        {
+          "FN": "API Evangliest",
+          "email": "info@apievangelist.com",
+          "X-twitter": "apievangelist"
+        }
+      ]
+    }
+  ],
+  "include": [],
+  "maintainers": [
+    {
+      "FN": "Kin",
+      "X-twitter": "apievangelist",
+      "email": "kin@email.com",
+      "vCard":"http://staging.apis.io/vCards/testVcard.vcf"
+    }
+  ]
+}
